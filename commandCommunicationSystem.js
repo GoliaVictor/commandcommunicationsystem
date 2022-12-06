@@ -40,6 +40,16 @@ firebase.auth().signInAnonymously().catch(error => {
     console.error(error.code, error.message)
 })
 
+function handleCommand(data) {
+    // When a change in players occurs
+    if (data["command"] !== "") {
+        if (data["command"].split(" ")[0] != uid) {
+            decodeCommand(data["command"])
+            gref.update({"command": ""})
+        }
+    }
+}
+
 function host() {
     gref = firebase.database().ref(`games/${uid}`);
     gid = uid;
@@ -75,7 +85,7 @@ function host() {
     });
 }
 
-function join(id) {
+function joinGame(id) {
     if (gid !== id) {
         // check if game exists
         allGamesRef.get().then((gamesSnap) => {
@@ -145,40 +155,70 @@ function command(str) {
     }
 }
 
-function handleCommand(data) {
-    // When a change in players occurs
-    if (data["command"] !== "") {
-        if (data["command"].split(" ")[0] != uid) {
-            decodeCommand(data["command"])
-            gref.update({"command": ""})
-        }
-    }
+function generateUsername() {
+    const adj = [
+        "ancient",
+        "bumpy",
+        "busy",
+        "combative",
+        "cotton",
+        "dangerous",
+        "dusty",
+        "elderly",
+        "expensive",
+        "graceful",
+        "granite",
+        "handsome",
+        "hollow",
+        "lazy",
+        "low",
+        "massive",
+        "melodic",
+        "new",
+        "octagonal",
+        "oval",
+        "rainy",
+        "right",
+        "safe",
+        "sane",
+        "shrill",
+        "shy",
+        "sore",
+        "superior",
+        "swift",
+        "teak",
+        "terrible",
+        "tremendous",
+        "weary",
+        "wild",
+    ];
+    const animal = [
+        "ape",
+        "bear",
+        "camel",
+        "dingo",
+        "dog",
+        "elephant",
+        "fox",
+        "gorilla",
+        "hawk",
+        "jaguar",
+        "koala",
+        "leopard",
+        "magpie",
+        "narwhal",
+        "octopus",
+        "peacock",
+        "quagga",
+        "rhino",
+        "snake",
+        "tapir",
+        "unicorn",
+        "viper",
+        "wombat",
+        "xenops",
+        "yak",
+        "zebra",
+    ];
+    return `${adj[Math.round(Math.random()*(adj.length-1))]} ${animal[Math.round(Math.random()*(animal.length-1))]}`
 }
-
-// function join() {
-//     allGamesRef = firebase.database().ref(`games`)
-
-//     allGamesRef.on("value", snapshot => {
-//         // When a change in players occurs
-//         updatedPlayers = snapshot.val()
-//         Object.keys(updatedPlayers).forEach(key => {
-//             if (key != uid) {
-//                 Object.keys(updatedPlayers[key]).forEach(attribute => {
-//                     players[key][attribute] = updatedPlayers[key][attribute]
-//                 })
-//             }
-//         })
-//     })
-
-//     allPlayersRef.on("child_added", snapshot => {
-//         // When a new player is added
-//         const addedPlayer = snapshot.val()
-//         if (addedPlayer.uid != uid) players[addedPlayer.uid] = convertToGettersAndSetters(addedPlayer)
-//     })
-
-//     allPlayersRef.on("child_removed", snapshot => {
-//         // When a player is deleted
-//         const deletedPlayer = snapshot.val()
-//         delete players[deletedPlayer.uid]
-//     })
-// }
