@@ -73,13 +73,12 @@ function hostGame() {
             
             allPlayersRef.child(snapshot.val()["player2"]).get().then((snapshot) => {
                 friend = snapshot.val()
+                onPlayerConnected()
             })
             fref = allPlayersRef.child(snapshot.val()["player2"])
             fref.on('value', (snapshot) => {
                 friend = snapshot.val()
             })
-
-            onPlayerConnected()
         }
         handleCommand(snapshot.val())
     });
@@ -106,6 +105,7 @@ function joinGame(id) {
 
                     allPlayersRef.child(gid).get().then((snapshot) => {
                         friend = snapshot.val()
+                        onJoinGame()
                     })
                     fref = allPlayersRef.child(gid)
                     fref.on('value', (snapshot) => {
@@ -123,7 +123,6 @@ function joinGame(id) {
                         }
                     });
 
-                    onJoinGame()
                     break;
                 }
             }
