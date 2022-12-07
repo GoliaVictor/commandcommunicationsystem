@@ -149,6 +149,8 @@ function leave(sayGoodbye = true) {
         friend = {};
         fref = undefined;
         fid = undefined;
+
+        onLeaveGame()
     }
 }
 
