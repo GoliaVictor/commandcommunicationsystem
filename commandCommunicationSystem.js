@@ -50,7 +50,7 @@ function handleCommand(data) {
     }
 }
 
-function host() {
+function hostGame() {
     gref = firebase.database().ref(`games/${uid}`);
     gid = uid;
     gref.set({
@@ -83,6 +83,8 @@ function host() {
         }
         handleCommand(snapshot.val())
     });
+
+    onHostGame()
 }
 
 function joinGame(id) {
@@ -121,6 +123,7 @@ function joinGame(id) {
                         }
                     });
 
+                    onJoinGame()
                     break;
                 }
             }
