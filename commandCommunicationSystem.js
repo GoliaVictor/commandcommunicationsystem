@@ -51,6 +51,7 @@ function handleCommand(data) {
 }
 
 function hostGame() {
+    uref.update(userData)
     gref = firebase.database().ref(`games/${uid}`);
     gid = uid;
     gref.set({
@@ -96,6 +97,7 @@ function joinGame(id) {
                     // game exists
 
                     leave()
+                    uref.update(userData)
 
                     gid = id;
                     fid = id;
