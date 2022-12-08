@@ -51,6 +51,7 @@ function handleCommand(data) {
 
 function hostGame() {
     uref.update(userData)
+    leaveGame()
     gref = firebase.database().ref(`games/${uid}`);
     gid = uid;
     gref.set({
@@ -95,7 +96,7 @@ function joinGame(id) {
                 if (gameID == id) {
                     // game exists
 
-                    leave()
+                    leaveGame()
                     uref.update(userData)
 
                     gid = id;
@@ -132,7 +133,7 @@ function joinGame(id) {
 }
 
 // say goodbye is a boolean to determine whether or not to set player2 to "" upon leaving
-function leave(sayGoodbye = true) {
+function leaveGame(sayGoodbye = true) {
     if (gid) {
         if (fid) fref.off("value");
         gref.off("value");
@@ -162,68 +163,68 @@ function command(str) {
 
 function generateUsername() {
     const adj = [
-        "ancient",
-        "bumpy",
-        "busy",
-        "combative",
-        "cotton",
-        "dangerous",
-        "dusty",
-        "elderly",
-        "expensive",
-        "graceful",
-        "granite",
-        "handsome",
-        "hollow",
-        "lazy",
-        "low",
-        "massive",
-        "melodic",
-        "new",
-        "octagonal",
-        "oval",
-        "rainy",
-        "right",
-        "safe",
-        "sane",
-        "shrill",
-        "shy",
-        "sore",
-        "superior",
-        "swift",
-        "teak",
-        "terrible",
-        "tremendous",
-        "weary",
-        "wild",
+        "Ancient",
+        "Bumpy",
+        "Busy",
+        "Combative",
+        "Cotton",
+        "Dangerous",
+        "Dusty",
+        "Elderly",
+        "Expensive",
+        "Graceful",
+        "Granite",
+        "Handsome",
+        "Hollow",
+        "Lazy",
+        "Low",
+        "Massive",
+        "Melodic",
+        "New",
+        "Octagonal",
+        "Oval",
+        "Rainy",
+        "Right",
+        "Safe",
+        "Sane",
+        "Shrill",
+        "Shy",
+        "Sore",
+        "Superior",
+        "Swift",
+        "Teak",
+        "Terrible",
+        "Tremendous",
+        "Weary",
+        "Wild",
     ];
     const animal = [
-        "ape",
-        "bear",
-        "camel",
-        "dingo",
-        "dog",
-        "elephant",
-        "fox",
-        "gorilla",
-        "hawk",
-        "jaguar",
-        "koala",
-        "leopard",
-        "magpie",
-        "narwhal",
-        "octopus",
-        "peacock",
-        "quagga",
-        "rhino",
-        "snake",
-        "tapir",
-        "unicorn",
-        "viper",
-        "wombat",
-        "xenops",
-        "yak",
-        "zebra",
+        "Ape",
+        "Bear",
+        "Camel",
+        "Dingo",
+        "Dog",
+        "Elephant",
+        "Fox",
+        "Gorilla",
+        "Hawk",
+        "Jaguar",
+        "Koala",
+        "Leopard",
+        "Magpie",
+        "Narwhal",
+        "Octopus",
+        "Peacock",
+        "Quagga",
+        "Rhino",
+        "Snake",
+        "Tapir",
+        "Unicorn",
+        "Viper",
+        "Wombat",
+        "Xenops",
+        "Yak",
+        "Zebra",
     ];
     return `${adj[Math.round(Math.random()*(adj.length-1))]} ${animal[Math.round(Math.random()*(animal.length-1))]}`
 }
