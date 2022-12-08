@@ -41,7 +41,7 @@ firebase.auth().signInAnonymously().catch(error => {
 
 function handleCommand(data) {
     // When a change in players occurs
-    if (data["command"] !== "") {
+    if (data["command"] != "") {
         if (data["command"].split(" ")[0] != uid) {
             decodeCommand(data["command"])
             gref.update({"command": ""})
