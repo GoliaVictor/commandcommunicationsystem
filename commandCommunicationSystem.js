@@ -17,22 +17,21 @@ firebase.initializeApp(firebaseConfig);
 
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
-        // Logged in
-        console.log("Logged in")
-        
+        // Logged in        
         uid = user.uid
         uref = firebase.database().ref(`players/${uid}`)
-        console.log(uid)
         uref.update(userData)
 
         allPlayersRef = firebase.database().ref(`players`)
         allGamesRef = firebase.database().ref(`games`)
 
         uref.onDisconnect().remove()
+
+        onLogin()
     }
     else {
         // Logged out
-        console.log("Logged out")
+        onLogout()
     }
 })
 
